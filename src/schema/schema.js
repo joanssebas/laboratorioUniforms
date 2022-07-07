@@ -1,4 +1,5 @@
-// import Ajv from "ajv";
+import json from "./json";
+//import Ajv from "ajv";
 // import {JSONSchemaBridge} from "uniforms-bridge-json-schema";
 
 // const ajv = new Ajv({allErrors: true, useDefaults: true});
@@ -58,24 +59,34 @@
 // export const bridge = new JSONSchemaBridge(schema, schemaValidator);
 
 //validacion personalizada con el schema a continuacion
+console.log("json data ", json.formFour.otherComplementaryResources);
+
+//variables del json
+const userName = json.formOne.headName;
+const projectName = json.formOne.project.name;
+const cityName = json.formOne.company.municipality_name;
+
 const UserLoginSchema = {
   login: {
     __type__: String,
     required: true,
-    initialValue: "",
+    initialValue: userName,
     label: "Nombre de usuario",
+    disabled: true,
   },
   password1: {
     __type__: String,
     required: true,
-    initialValue: "",
-    label: "Contraseña",
+    initialValue: projectName,
+    label: "Proyecto al que esta afiliado",
+    disabled: true,
   },
   password2: {
     __type__: String,
     required: true,
-    initialValue: "",
-    label: "Contraseña (nuevamente)",
+    initialValue: cityName,
+    label: "Ciudad",
+    disabled: true,
   },
 };
 

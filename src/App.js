@@ -43,7 +43,7 @@ function App() {
     >
       <AutoForm
         schema={bridge}
-        // onSubmit={(model: any) => alert(JSON.stringify(model, null, 2))}
+        onSubmit={(model: any) => alert(JSON.stringify(model, null, 2))}
       >
         {/* <h4>Formulario de prueba</h4>
       <AutoField name="firstName" />
