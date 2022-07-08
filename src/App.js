@@ -85,7 +85,7 @@ function App() {
             <span>La ciudad que seleccionaste fue {valorLista}</span>
           </section>
         </DisplayIf>
-        <SubmitField />
+        <SubmitField value="Enviar información" />
       </AutoForm>
     </div>
   );
