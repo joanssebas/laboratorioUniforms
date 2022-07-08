@@ -1,11 +1,8 @@
-import json from "./json";
-//import Ajv from "ajv";
+// import Ajv from "ajv";
 // import {JSONSchemaBridge} from "uniforms-bridge-json-schema";
 
-// const ajv = new Ajv({allErrors: true, useDefaults: true});
-
-// const schema = {
-//   title: "DisplayIf",
+// export const schema = {
+//   title: "Guest",
 //   type: "object",
 //   properties: {
 //     firstName: {type: "string"},
@@ -16,34 +13,12 @@ import json from "./json";
 //       minimum: 0,
 //       maximum: 100,
 //     },
-//     profession: {
-//       type: "string",
-//       options: [
-//         {
-//           label: "Developer",
-//           value: "developer",
-//         },
-//         {
-//           label: "Tester",
-//           value: "tester",
-//         },
-//         {
-//           label: "Product owner",
-//           value: "product-owner",
-//         },
-//         {
-//           label: "Project manager",
-//           value: "project-manager",
-//         },
-//         {
-//           label: "Businessman",
-//           value: "businessman",
-//         },
-//       ],
-//     },
+//     profession: {type: "string"},
 //   },
-//   required: ["firstName", "lastName"],
+//   // required: ["firstName", "lastName"],
 // };
+
+// const ajv = new Ajv({allErrors: true, useDefaults: true});
 
 // function createValidator(schema: object) {
 //   const validator = ajv.compile(schema);
@@ -58,35 +33,26 @@ import json from "./json";
 
 // export const bridge = new JSONSchemaBridge(schema, schemaValidator);
 
-//validacion personalizada con el schema a continuacion
-console.log("json data ", json.formFour.otherComplementaryResources);
-
-//variables del json
-const userName = json.formOne.headName;
-const projectName = json.formOne.project.name;
-const cityName = json.formOne.company.municipality_name;
+//----------------------
 
 const UserLoginSchema = {
   login: {
     __type__: String,
     required: true,
-    initialValue: userName,
-    label: "Nombre de usuario",
-    disabled: true,
+    initialValue: "",
+    label: "Correo",
   },
   password1: {
     __type__: String,
     required: true,
-    initialValue: projectName,
-    label: "Proyecto al que esta afiliado",
-    disabled: true,
+    initialValue: "",
+    label: "Contraseña",
   },
   password2: {
     __type__: String,
     required: true,
-    initialValue: cityName,
-    label: "Ciudad",
-    disabled: true,
+    initialValue: "",
+    label: "Repite la contraseña",
   },
 };
 
