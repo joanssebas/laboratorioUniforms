@@ -66,6 +66,7 @@ function App() {
             </DisplayIf>
           </section>
         </DisplayIf>
+        <SelectField name="profession" />
         <SubmitField />
       </AutoForm>
     </div>

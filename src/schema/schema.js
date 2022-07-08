@@ -9,6 +9,32 @@ const schema = {
   properties: {
     fieldA: {type: "string"},
     fieldB: {type: "string"},
+    profession: {
+      type: "string",
+      label: "selecciona una ciudad por favor",
+      options: [
+        {
+          label: "Cali",
+          value: "Cali",
+        },
+        {
+          label: "Medellin",
+          value: "Medellin",
+        },
+        {
+          label: "Bucaramanga",
+          value: "Bucaramanga",
+        },
+        {
+          label: "Pasto",
+          value: "Pasto",
+        },
+        {
+          label: "Pereira",
+          value: "Pereira",
+        },
+      ],
+    },
   },
 };
 
