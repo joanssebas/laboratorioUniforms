@@ -1,4 +1,4 @@
-import React, {Children, ReactElement, useState} from "react";
+import React, {Children, ReactElement, useState, useEffect} from "react";
 import {
   AutoForm,
   AutoField,
@@ -10,6 +10,7 @@ import {
 import UserLoginSchema from "../src/schema/schema";
 import UserLoginSchemaBridge from "../src/validations/Bridge";
 import UserLoginSchemaValidator from "../src/validations/validationSchema";
+import {getData} from "../src/schema/schema";
 
 import {Context, useForm} from "uniforms";
 
@@ -28,6 +29,10 @@ function DisplayIf({children, condition}: DisplayIfProps<T>) {
 }
 
 function App() {
+  useEffect(() => {
+    getData();
+  }, []);
+
   const [valorLista, setvalorLista] = useState("");
 
   const diplayIfValidation = (text) => {

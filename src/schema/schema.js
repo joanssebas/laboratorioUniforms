@@ -1,7 +1,33 @@
+import React, {useEffect, useState} from "react";
 import Ajv from "ajv";
 import {JSONSchemaBridge} from "uniforms-bridge-json-schema";
 
 const ajv = new Ajv({allErrors: true, useDefaults: true});
+var data;
+export const getData = async () => {
+  const response = await fetch("https://restcountries.com/v3.1/all");
+  const myJson = await response.json(); //extract JSON from the http response
+  // hacemos el map de la data
+  //mapData(myJson)
+  console.log("api result ", myJson[0].name.common);
+  mapData(myJson);
+};
+
+var items = [];
+
+const mapData = async (jsonData) => {
+  data = jsonData.map(function (item) {
+    return {
+      label: item.name.common,
+      value: item.name.common,
+    };
+  });
+  console.log("data json map ", data);
+  for (let index = 0; index < data.length; index++) {
+    await items.push(data[index]);
+  }
+  console.log("items info ", items);
+};
 
 const schema = {
   title: "DisplayIf",
@@ -11,29 +37,8 @@ const schema = {
     fieldB: {type: "string", label: "Texto de validacion"},
     profession: {
       type: "string",
-      label: "selecciona una ciudad por favor",
-      options: [
-        {
-          label: "Cali",
-          value: "Cali",
-        },
-        {
-          label: "Medellin",
-          value: "Medellin",
-        },
-        {
-          label: "Bucaramanga",
-          value: "Bucaramanga",
-        },
-        {
-          label: "Pasto",
-          value: "Pasto",
-        },
-        {
-          label: "Pereira",
-          value: "Pereira",
-        },
-      ],
+      //label: "selecciona una ciudad por favor",
+      options: items,
     },
   },
 };
