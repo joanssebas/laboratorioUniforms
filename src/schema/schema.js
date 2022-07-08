@@ -3,7 +3,9 @@ import Ajv from "ajv";
 import {JSONSchemaBridge} from "uniforms-bridge-json-schema";
 
 const ajv = new Ajv({allErrors: true, useDefaults: true});
+//aqui se valida los valores del list que vienen del endpoint
 var data;
+var items = [];
 export const getData = async () => {
   const response = await fetch("https://restcountries.com/v3.1/all");
   const myJson = await response.json(); //extract JSON from the http response
@@ -12,8 +14,6 @@ export const getData = async () => {
   console.log("api result ", myJson[0].name.common);
   mapData(myJson);
 };
-
-var items = [];
 
 const mapData = async (jsonData) => {
   data = jsonData.map(function (item) {
