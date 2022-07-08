@@ -23,7 +23,7 @@ const mapData = async (jsonData) => {
     };
   });
   console.log("data json map ", data);
-  for (let index = 0; index < data.length; index++) {
+  for (let index = 0; index < data.length / 2; index++) {
     await items.push(data[index]);
   }
   console.log("items info ", items);
