@@ -1,4 +1,4 @@
-import React, {Children, ReactElement} from "react";
+import React, {Children, ReactElement, useState} from "react";
 import {
   AutoForm,
   AutoField,
@@ -28,8 +28,16 @@ function DisplayIf({children, condition}: DisplayIfProps<T>) {
 }
 
 function App() {
+  const [valorLista, setvalorLista] = useState("");
+
   const diplayIfValidation = (text) => {
     if (text === "1116275254") {
+      return true;
+    }
+  };
+  const displayList = (text) => {
+    if (text === "Medellin") {
+      setvalorLista(text);
       return true;
     }
   };
@@ -61,12 +69,22 @@ function App() {
         >
           <section>
             <TextField name="fieldB" />
-            <DisplayIf condition={(context) => context.model.fieldB}>
+            {/* <DisplayIf condition={(context) => context.model.fieldB}>
               <span>Cedula que activa la validacion</span>
-            </DisplayIf>
+            </DisplayIf> */}
           </section>
         </DisplayIf>
-        <SelectField name="profession" />
+        <SelectField
+          name="profession"
+          // onChange={(text) => setvalorLista(text)}
+        />
+        <DisplayIf
+          condition={(context) => displayList(context.model.profession)}
+        >
+          <section>
+            <span>La ciudad que seleccionaste fue {valorLista}</span>
+          </section>
+        </DisplayIf>
         <SubmitField />
       </AutoForm>
     </div>
