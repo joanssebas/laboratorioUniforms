@@ -7,8 +7,8 @@ const schema = {
   title: "DisplayIf",
   type: "object",
   properties: {
-    fieldA: {type: "string"},
-    fieldB: {type: "string"},
+    fieldA: {type: "string", label: "Cedula"},
+    fieldB: {type: "string", label: "Texto de validacion"},
     profession: {
       type: "string",
       label: "selecciona una ciudad por favor",
