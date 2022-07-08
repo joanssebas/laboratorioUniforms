@@ -5,6 +5,7 @@ import {
   ErrorField,
   SubmitField,
   SelectField,
+  TextField,
 } from "uniforms-semantic";
 import UserLoginSchema from "../src/schema/schema";
 import UserLoginSchemaBridge from "../src/validations/Bridge";
@@ -14,27 +15,32 @@ import {Context, useForm} from "uniforms";
 
 import {bridge as schema} from "../src/schema/schema";
 
-// type DisplayIfProps<T> = {
-//   children: ReactElement,
-//   condition: (context: Context<T>) => boolean,
-// };
+type DisplayIfProps<T> = {
+  children: ReactElement,
+  condition: (context: Context<T>) => boolean,
+};
 
 // We have to ensure that there's only one child, because returning an array
 // from a component is prohibited.
-// function DisplayIf({children, condition}: DisplayIfProps<T>) {
-//   const uniforms = useForm();
-//   return condition(uniforms) ? Children.only(children) : null;
-// }
+function DisplayIf({children, condition}: DisplayIfProps<T>) {
+  const uniforms = useForm();
+  return condition(uniforms) ? Children.only(children) : null;
+}
 
 function App() {
-  const createUser = async (event) => {
-    console.log("datos del formulario ", event);
+  const diplayIfValidation = (text) => {
+    if (text === "1116275254") {
+      return true;
+    }
   };
+  // const createUser = async (event) => {
+  //   console.log("datos del formulario ", event);
+  // };
 
-  const bridge = new UserLoginSchemaBridge(
-    UserLoginSchema,
-    UserLoginSchemaValidator
-  );
+  // const bridge = new UserLoginSchemaBridge(
+  //   UserLoginSchema,
+  //   UserLoginSchemaValidator
+  // );
 
   return (
     <div
@@ -45,15 +51,22 @@ function App() {
         height: "100vh",
       }}
     >
-      <AutoForm schema={bridge} onSubmit={(text) => createUser(text)}>
-        <h4>Datos para la entrega del bono</h4>
-        <AutoField name="login" />
-        <ErrorField name="login" />
-        <AutoField name="password1" />
-        <ErrorField name="password1" />
-        <AutoField name="password2" />
-        <ErrorField name="password2" />
-        <SubmitField value="Validar" />
+      <AutoForm
+        schema={schema}
+        onSubmit={(model: any) => alert(JSON.stringify(model, null, 2))}
+      >
+        <TextField name="fieldA" />
+        <DisplayIf
+          condition={(context) => diplayIfValidation(context.model.fieldA)}
+        >
+          <section>
+            <TextField name="fieldB" />
+            <DisplayIf condition={(context) => context.model.fieldB}>
+              <span>Cedula que activa la validacion</span>
+            </DisplayIf>
+          </section>
+        </DisplayIf>
+        <SubmitField />
       </AutoForm>
     </div>
   );
