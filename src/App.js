@@ -1,4 +1,4 @@
-import React, {Children, ReactElement, useState, useEffect} from "react";
+import React, { Children, ReactElement, useState, useEffect } from "react";
 import {
   AutoForm,
   AutoField,
@@ -10,11 +10,11 @@ import {
 import UserLoginSchema from "../src/schema/schema";
 import UserLoginSchemaBridge from "../src/validations/Bridge";
 import UserLoginSchemaValidator from "../src/validations/validationSchema";
-import {getData} from "../src/schema/schema";
+import { getData } from "../src/schema/schema";
 
-import {Context, useForm} from "uniforms";
+import { Context, useForm } from "uniforms";
 
-import {bridge as schema} from "../src/schema/schema";
+import { bridge as schema } from "../src/schema/schema";
 
 export var numb1 = "";
 
@@ -25,7 +25,7 @@ type DisplayIfProps<T> = {
 
 // We have to ensure that there's only one child, because returning an array
 // from a component is prohibited.
-function DisplayIf({children, condition}: DisplayIfProps<T>) {
+function DisplayIf({ children, condition }: DisplayIfProps<T>) {
   const uniforms = useForm();
   return condition(uniforms) ? Children.only(children) : null;
 }
