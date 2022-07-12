@@ -16,6 +16,8 @@ import {Context, useForm} from "uniforms";
 
 import {bridge as schema} from "../src/schema/schema";
 
+export var numb1 = "";
+
 type DisplayIfProps<T> = {
   children: ReactElement,
   condition: (context: Context<T>) => boolean,
@@ -27,11 +29,30 @@ function DisplayIf({children, condition}: DisplayIfProps<T>) {
   const uniforms = useForm();
   return condition(uniforms) ? Children.only(children) : null;
 }
+var index = 0;
 
 function App() {
+  const [number1, setnumber1] = useState("");
+  const [number2, setnumber2] = useState("");
   useEffect(() => {
     getData();
+    getNumb1();
+    getNumb2();
   }, []);
+
+  const getNumb1 = () => {
+    fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+      .then((res) => res.json())
+      .then((data) => setnumber1(data.bpi.EUR.rate_float))
+      .then(() => console.log("numb1 var promise ", number1));
+  };
+
+  const getNumb2 = () => {
+    fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+      .then((res) => res.json())
+      .then((data) => setnumber2(data.bpi.USD.rate_float))
+      .then(() => console.log("numb1 var promise ", number1));
+  };
 
   const [valorLista, setvalorLista] = useState("");
 
@@ -45,6 +66,13 @@ function App() {
       setvalorLista(text);
       return true;
     }
+  };
+
+  const convertText = (text) => {
+    // console.log("convert text result", text);
+    text.fieldNumber1 = number1;
+    text.fieldNumber2 = number2;
+    console.log("convert text result FINAL", text);
   };
   // const createUser = async (event) => {
   //   console.log("datos del formulario ", event);
@@ -64,10 +92,7 @@ function App() {
         height: "100vh",
       }}
     >
-      <AutoForm
-        schema={schema}
-        onSubmit={(model: any) => alert(JSON.stringify(model, null, 2))}
-      >
+      <AutoForm schema={schema} onSubmit={(text) => convertText(text)}>
         <TextField name="fieldA" />
         <DisplayIf
           condition={(context) => diplayIfValidation(context.model.fieldA)}
@@ -79,8 +104,16 @@ function App() {
             </DisplayIf> */}
           </section>
         </DisplayIf>
+        <TextField name="fieldNumber1" value={number1} disabled={true} />
+        <TextField name="fieldNumber2" value={number2} disabled={true} />
+        <TextField
+          name="fieldTotal"
+          value={number1 + number2}
+          disabled={true}
+        />
         <SelectField
           name="profession"
+          key={index++}
           // onChange={(text) => setvalorLista(text)}
         />
         <DisplayIf
