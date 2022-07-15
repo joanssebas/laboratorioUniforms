@@ -34,16 +34,30 @@ var index = 0;
 function App() {
   const [number1, setnumber1] = useState("");
   const [number2, setnumber2] = useState("");
+  const [valueList, setvalueList] = useState("");
+  const [valuenumb1, setvaluenumb1] = useState("");
+
   useEffect(() => {
     getData();
     getNumb1();
     getNumb2();
   }, []);
 
+  const search = (data) => {
+    var search = "USD";
+    setvalueList(data);
+    if (data === "Turkey") {
+      setvaluenumb1(number1.bpi[search].code);
+      //var found = number1.find((e) => e.bpi === search);
+    } else {
+      setvaluenumb1("valor no valido");
+    }
+  };
+
   const getNumb1 = () => {
     fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
       .then((res) => res.json())
-      .then((data) => setnumber1(data.bpi.EUR.rate_float))
+      .then((data) => setnumber1(data))
       .then(() => console.log("numb1 var promise ", number1));
   };
 
@@ -72,6 +86,7 @@ function App() {
     // console.log("convert text result", text);
     text.fieldNumber1 = number1;
     text.fieldNumber2 = number2;
+    text.profession = valueList;
     console.log("convert text result FINAL", text);
   };
   // const createUser = async (event) => {
@@ -104,7 +119,7 @@ function App() {
             </DisplayIf> */}
           </section>
         </DisplayIf>
-        <TextField name="fieldNumber1" value={number1} disabled={true} />
+        <TextField name="fieldNumber1" value={valuenumb1} disabled={true} />
         <TextField name="fieldNumber2" value={number2} disabled={true} />
         <TextField
           name="fieldTotal"
@@ -113,7 +128,11 @@ function App() {
         />
         <SelectField
           name="profession"
-          key={index++}
+          onChange={
+            (key) => search(key)
+            // console.log("valor onchange ", key, value)
+          }
+          value={valueList}
           // onChange={(text) => setvalorLista(text)}
         />
         <DisplayIf
